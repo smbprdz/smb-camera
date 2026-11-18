@@ -132,7 +132,14 @@ class IsolatedPortraitModel:
         self.deadline=time.monotonic()+(20 if not self.ready else 2)
         try:
             if not self.ready:
-                if self._exact(4)!=b'READ':raise RuntimeError('Invalid matting worker reply')
+                reply = self._exact(4)
+                if reply == b'FAIL':
+                    size = struct.unpack('!I', self._exact(4))[0]
+                    if size > 1024:
+                        raise RuntimeError('Invalid matting worker error')
+                    raise RuntimeError(self._exact(size).decode('utf-8', errors='replace'))
+                if reply != b'READ':
+                    raise RuntimeError('Invalid matting worker reply')
                 self.ready=True
             if self.backend=='nvidia':
                 rgb,region=small_rgb(frame,512,288,angle,mirror);data=np.ascontiguousarray(rgb[:,:,::-1]).tobytes()

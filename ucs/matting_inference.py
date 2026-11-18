@@ -18,11 +18,18 @@ def main():
     os.dup2(sys.stderr.fileno(),sys.stdout.fileno())
     import numpy as np
     from .matting import PortraitModel
-    with contextlib.redirect_stdout(sys.stderr):
-        if args.backend=='nvidia':
-            from .nvidia_vfx import NvidiaMatte
-            model=NvidiaMatte(2 if args.quality=='quality' else 3)
-        else:model=PortraitModel(args.backend)
+    try:
+        with contextlib.redirect_stdout(sys.stderr):
+            if args.backend=='nvidia':
+                from .nvidia_vfx import NvidiaMatte
+                model=NvidiaMatte(2 if args.quality=='quality' else 3)
+            else:model=PortraitModel(args.backend)
+    except Exception as error:
+        print(f'{type(error).__name__}: {error}', file=sys.stderr)
+        message = str(error) if isinstance(error, RuntimeError) else 'Não foi possível carregar o recorte. Confira o runtime e a instalação da GPU.'
+        detail = message.encode('utf-8')[:1024]
+        outgoing.write(b'FAIL' + struct.pack('!I',len(detail)) + detail)
+        return
     outgoing.write(b'READ');outgoing.flush()
     while True:
         try:

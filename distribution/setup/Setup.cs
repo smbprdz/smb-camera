@@ -4,6 +4,7 @@ using System.IO;
 using System.IO.Compression;
 using System.Linq;
 using System.Reflection;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
 [assembly: AssemblyTitle("Instalador SMB Camera Beta")]
@@ -40,7 +41,29 @@ static class Setup
 
     static readonly string LocalHome = Path.Combine(
         Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "SMB Camera");
-    internal static readonly string DefaultFolder = Path.Combine(LocalHome, "Beta");
+    static readonly string LegacyFolder = Path.Combine(LocalHome, "Beta");
+    static readonly Lazy<string> Version = new Lazy<string>(PackageVersion);
+
+    internal static string DefaultFolder
+    {
+        get { return Directory.Exists(LegacyFolder) ? Path.Combine(LocalHome, Version.Value) : LegacyFolder; }
+    }
+
+    static string ReadVersion(Stream manifest)
+    {
+        using (var reader = new StreamReader(manifest))
+        {
+            var match = Regex.Match(reader.ReadToEnd(), @"""version""\s*:\s*""([0-9]+\.[0-9]+\.[0-9]+-beta)""");
+            return match.Success ? match.Groups[1].Value : null;
+        }
+    }
+
+    static string PackageVersion()
+    {
+        using (var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("SMB.Camera.Windows.Beta"))
+        using (var zip = new ZipArchive(stream, ZipArchiveMode.Read))
+            return ReadVersion(zip.Entries.Single(entry => entry.Name == "MANIFEST.json").Open());
+    }
     static readonly string Receipt = Path.Combine(LocalHome, "installed-folder.txt");
     const string Python = @".venv\Scripts\pythonw.exe";
     const string CameraArgs = "-m ucs.desktop --decoder d3d11va --renderer gl --matting-backend nvidia --alpha-output";
@@ -61,7 +84,9 @@ static class Setup
             if (String.IsNullOrWhiteSpace(folder) || !Path.IsPathRooted(folder) || new Uri(folder).IsUnc)
                 return false;
             var required = new[] { Python, "MANIFEST.json", "ucs/desktop.py", "tools/obs_setup.py", "docs/PRIMEIRO-USO.html" };
-            return required.All(path => File.Exists(Path.Combine(folder, path))) &&
+            if (!required.All(path => File.Exists(Path.Combine(folder, path))))
+                return false;
+            return ReadVersion(File.OpenRead(Path.Combine(folder, "MANIFEST.json"))) == Version.Value &&
                 File.ReadLines(Path.Combine(folder, "preparacao.log")).Any(line => line.StartsWith("Pronto.", StringComparison.Ordinal));
         }
         catch (IOException) { return false; }
@@ -76,7 +101,9 @@ static class Setup
         try { if (File.Exists(Receipt)) remembered = File.ReadAllText(Receipt).Trim(); }
         catch (IOException) { }
         catch (UnauthorizedAccessException) { }
-        return IsPrepared(remembered) ? remembered : IsPrepared(DefaultFolder) ? DefaultFolder : null;
+        foreach (string folder in new[] { remembered, LegacyFolder, DefaultFolder })
+            if (IsPrepared(folder)) return folder;
+        return null;
     }
 
     internal static void OpenCamera(string folder)

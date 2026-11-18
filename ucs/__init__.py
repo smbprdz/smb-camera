@@ -1,2 +1,2 @@
 """Universal Camera Studio: reference protocol and laboratory receiver."""
-__version__ = '0.19.2'
+__version__ = '0.19.3'

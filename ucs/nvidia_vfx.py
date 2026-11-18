@@ -7,20 +7,64 @@ import ctypes as C
 import hashlib,json,os
 from pathlib import Path
 
+ROOT = Path(__file__).resolve().parents[1]
+DEFAULT_RUNTIME = ROOT / 'runtime/nvidia-vfx-0.7.6'
+RUNTIME_CHOICE = ROOT / 'runtime/nvidia-vfx-location.txt'
+RUNTIME_MISSING = 'Recorte NVIDIA indisponível. Localize o runtime compatível ou use Original.'
+
+
+def runtime_files(folder):
+    record = json.loads((ROOT / 'docs/NVIDIA-VFX.lock.json').read_text(encoding='utf-8'))
+    for row in record['files']:
+        path = folder / row['path']
+        try:
+            if path.stat().st_size != row['bytes'] or not path.is_file():
+                raise RuntimeError(RUNTIME_MISSING)
+        except OSError:
+            raise RuntimeError(RUNTIME_MISSING) from None
+        yield path, row['sha256']
+
+
+def runtime_folder():
+    try:
+        if RUNTIME_CHOICE.stat().st_size <= 8192:
+            path = RUNTIME_CHOICE.read_text(encoding='utf-8').strip()
+            if Path(path).is_absolute() and not path.startswith(('/' * 2, chr(92) * 2)):
+                return Path(path)
+    except (OSError, UnicodeError):
+        pass
+    return DEFAULT_RUNTIME
+
+
+def runtime_error():
+    try:
+        list(runtime_files(runtime_folder()))
+        return ''
+    except (OSError, ValueError, RuntimeError):
+        return RUNTIME_MISSING
+
+
+def select_runtime(path):
+    folder = Path(path).resolve()
+    if str(folder).startswith(('/' * 2, chr(92) * 2)):
+        raise ValueError('Escolha uma pasta local.')
+    list(runtime_files(folder))
+    RUNTIME_CHOICE.parent.mkdir(parents=True, exist_ok=True)
+    pending = RUNTIME_CHOICE.with_suffix('.tmp')
+    pending.write_text(str(folder) + '\n', encoding='utf-8')
+    pending.replace(RUNTIME_CHOICE)
+
+
 class NvidiaMatte:
     width=512;height=288
     def __init__(self,mode=2):
         import numpy as np
         if mode not in (0,1,2,3):raise ValueError('Invalid NVIDIA quality mode')
-        root=Path(__file__).resolve().parents[1]
-        self.folder=root/'runtime/nvidia-vfx-0.7.6'
-        record=json.loads((root/'docs/NVIDIA-VFX.lock.json').read_text(encoding='utf-8'))
-        for row in record['files']:
-            path=self.folder/row['path']
-            if not path.is_file() or path.stat().st_size!=row['bytes']:
-                raise RuntimeError('Runtime NVIDIA ausente ou diferente do pacote verificado.')
-            with path.open('rb') as stream:digest=hashlib.file_digest(stream,'sha256').hexdigest()
-            if digest!=row['sha256']:raise RuntimeError('Runtime NVIDIA diferente do pacote verificado.')
+        self.folder = runtime_folder()
+        for path, digest in runtime_files(self.folder):
+            with path.open('rb') as stream:
+                if hashlib.file_digest(stream, 'sha256').hexdigest() != digest:
+                    raise RuntimeError('Arquivos do runtime NVIDIA alterados. Localize uma cópia compatível.')
         self.dll_path=os.add_dll_directory(str(self.folder));self.images=[]
         self.effect=C.c_void_p();self.stream=C.c_void_p();self.state=C.c_void_p()
         self.image=C.CDLL(str(self.folder/'NVCVImage.dll'))

@@ -279,6 +279,11 @@ def build_ui(c):
     add_color_slider(c,lut,'lut_strength','Intensidade','%')
     ttk.Label(color.body,text='Ajustes de processamento SDR. Temperatura relativa não altera o balanço de branco físico do iPhone.',style='Muted.TLabel',wraplength=300).pack(anchor='w',pady=6)
     matte=section(background.body,'RECORTE NVIDIA' if c.matting_backend=='nvidia' else 'RECORTE')
+    if c.matting_backend == 'nvidia':
+        c.recorte_dependency = ttk.Label(matte, text='', style='Muted.TLabel', wraplength=275)
+        c.recorte_dependency.pack(anchor='w')
+        ttk.Button(matte, text='Localizar runtime NVIDIA…', command=c.select_matting_runtime).pack(fill='x', pady=(4, 5))
+        c.check_matting_runtime()
     c.background_mode=tk.StringVar(value='Original')
     modes=('Original','Transparente','Imagem')
     if c.renderer=='gl':modes+=('GIF ou vídeo',)

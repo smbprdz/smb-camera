@@ -128,9 +128,34 @@ class Desktop:
         changed={key:value for key,value in properties.items() if key not in known or known[key]!=value}
         if changed:widget.configure(**changed);known.update(changed)
 
+    def check_matting_runtime(self):
+        if self.matting_backend != 'nvidia':
+            return True
+        from .nvidia_vfx import runtime_error
+        message = runtime_error()
+        self.update_widget(self.recorte_dependency, text=message)
+        return not message
+
+    def select_matting_runtime(self):
+        from tkinter import filedialog, messagebox
+        from .nvidia_vfx import select_runtime
+        path = filedialog.askdirectory(parent=self.root, title='Pasta do runtime NVIDIA 0.7.6')
+        if not path:
+            return
+        try:
+            select_runtime(path)
+        except (ValueError, OSError, RuntimeError) as error:
+            messagebox.showerror('Runtime NVIDIA', str(error), parent=self.root)
+            return
+        self.check_matting_runtime()
+        self.background.set(mode=self.background.get()['mode'])
+
     def change_background(self, _=None):
         from .background_motion import MOTION_SUFFIXES
         mode={'Original':'off','Transparente':'transparent','Imagem':'image','GIF ou vídeo':'motion'}[self.background_mode.get()]
+        if mode != 'off' and not self.check_matting_runtime():
+            self.refresh_background_picker()
+            return
         current=self.background.get()
         path=current['image']
         matches_file=path and ((Path(path).suffix.lower() in MOTION_SUFFIXES) == (mode=='motion'))
@@ -150,6 +175,8 @@ class Desktop:
         self.update_widget(self.background_file_label, text=media)
 
     def choose_background(self):
+        if not self.check_matting_runtime():
+            return
         from tkinter import filedialog
         from .background_motion import verify_motion
         motion=self.background_mode.get()=='GIF ou vídeo'
