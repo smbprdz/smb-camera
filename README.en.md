@@ -35,7 +35,7 @@
 | Component | Tested reference |
 | --- | --- |
 | iPhone | SMB Camera 0.9 on iPhone 11 Pro Max with iOS 18.3.1 |
-| PC | Desktop 0.19.1 on Windows 11 x64 with RTX 3060 Laptop |
+| PC | Desktop 0.19.2 on Windows 11 x64 with RTX 3060 Laptop |
 | Video | 1080p30 SDR H.264 over USB |
 | OBS | SMB Camera source with OBS x64 32.2.2 and OBS 33.0.0 Portable |
 | Recording | MOV with original H.264 video and optional PCM audio |

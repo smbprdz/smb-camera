@@ -12,9 +12,9 @@ ROOT = Path(__file__).resolve().parents[1]
 RELEASE_PATHS = (
     'distribution/windows', 'ucs', 'integrations/obs',
     'LICENSE', 'THIRD-PARTY.md', 'requirements-windows-beta.txt',
-    'docs/INSTALL-WINDOWS.md', 'docs/INSTALL-IOS.md', 'docs/NVIDIA-BETA.md', 'docs/NATIVE.lock.json',
+    'docs/INSTALL-WINDOWS.md', 'docs/PRIMEIRO-USO.html', 'docs/INSTALL-IOS.md', 'docs/NVIDIA-BETA.md', 'docs/NATIVE.lock.json',
     'docs/NVIDIA-VFX.lock.json', 'docs/PRIVACY.md', 'docs/GPU-OUTPUT.md',
-    'tools/install_sdl.py',
+    'tools/install_sdl.py', 'tools/obs_setup.py',
 )
 
 
