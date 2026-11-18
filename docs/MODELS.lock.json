@@ -1,0 +1,12 @@
+{
+  "modnet-webcam": {
+    "version": "1.0.0",
+    "url": "https://github.com/clibdev/MODNet/releases/download/1.0.0/modnet-webcam.onnx",
+    "sha256": "52ace7b5c455f527542b496151996bed429b67ca8efc8bd793485a631363c688",
+    "bytes": 25944071,
+    "license": "Apache-2.0",
+    "upstream": "ZHKKKe/MODNet@28165a451e4610c9d77cfdf925a94610bb2810fb",
+    "onnx_conversion": "clibdev/MODNet@bb3302adef05641b4884ecbae5e0fe684023475e",
+    "license_url": "https://raw.githubusercontent.com/ZHKKKe/MODNet/28165a451e4610c9d77cfdf925a94610bb2810fb/LICENSE"
+  }
+}

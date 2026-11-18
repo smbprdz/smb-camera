@@ -1,0 +1,155 @@
+{
+  "runtime_version": "0.7.6.0",
+  "architecture": "Ampere sm86",
+  "source_page": "https://www.nvidia.com/en-us/geforce/broadcasting/broadcast-sdk/resources/",
+  "installer_sha256": "93bdf4ffec7c393037936349678d1864897fef45d7ba2ab81d4b1563e1328512",
+  "license": "NVIDIA Software License Agreement and AI Product-Specific Terms; personal internal evaluation, distribution review pending",
+  "files": [
+    {
+      "path": "cublas64_12.dll",
+      "bytes": 98058240,
+      "sha256": "1c25f8df508f75606da4c265730eea3de8bc7b3900f57f9b41f09d0258c666fa"
+    },
+    {
+      "path": "cublasLt64_12.dll",
+      "bytes": 538818048,
+      "sha256": "111614ef49d83141a8556416fb9faf9019990f21d40f777fe5d47af65489e90d"
+    },
+    {
+      "path": "cudart64_12.dll",
+      "bytes": 527872,
+      "sha256": "f86bc7f6043b5441f9686862403db35ea2006d87381a359deea3599804c6b83e"
+    },
+    {
+      "path": "libcrypto-3-x64.dll",
+      "bytes": 5174840,
+      "sha256": "f6e24061a5253d4f55da4cedcc770ba757f621dc0d57fc6c12baaadcd581754e"
+    },
+    {
+      "path": "models/AIGS_288x512_86_m0.engine.trtpkg",
+      "bytes": 20641344,
+      "sha256": "ef94f3252a47096a86fb9d67b7bab1164ccf7dffbe951087798b894d21d64077"
+    },
+    {
+      "path": "models/AIGS_288x512_86_m0_1_4_8.engine.trtpkg",
+      "bytes": 20301328,
+      "sha256": "6eba305b58266764a879133bcdfb540fb4d81a3d98ffb6f7dbb59b4dcf25e65a"
+    },
+    {
+      "path": "models/AIGS_288x512_86_m1.engine.trtpkg",
+      "bytes": 9493392,
+      "sha256": "6ae02de09e9b3333990d4c7474beb3071acdba235b0d8009f7584a132357e305"
+    },
+    {
+      "path": "models/AIGS_288x512_86_m1_1_4_8.engine.trtpkg",
+      "bytes": 8391216,
+      "sha256": "dcd774e97d9df46b8867ad09028e9704605f08680aa16f71485b0c93ec049d22"
+    },
+    {
+      "path": "models/AIGS_288x512_86_m2.engine.trtpkg",
+      "bytes": 20609620,
+      "sha256": "1f6757acf82ef44af1f673d48983682c477d4e2da2826809efb7e76eb5515457"
+    },
+    {
+      "path": "models/AIGS_288x512_86_m2_1_4_8.engine.trtpkg",
+      "bytes": 20286372,
+      "sha256": "a28338cf2a6ae79b5a0999d8a6899cc6473c0a9de8230265c3fc3e982238da2c"
+    },
+    {
+      "path": "models/AIGS_288x512_86_m3.engine.trtpkg",
+      "bytes": 9076644,
+      "sha256": "7b6145aa2f3ce65783a9a9c1974a0485a08ac0e360416c6063b7756492451142"
+    },
+    {
+      "path": "models/AIGS_288x512_86_m3_1_4_8.engine.trtpkg",
+      "bytes": 8547012,
+      "sha256": "2ced715dace26b74e1396041e1de2a4c7d92f39c0124bbbed1f87cef76818a5c"
+    },
+    {
+      "path": "nppc64_12.dll",
+      "bytes": 288256,
+      "sha256": "6d9b7394356a3aa30096df45cb0456c3afc40e367387a233110a01c5c6425985"
+    },
+    {
+      "path": "nppial64_12.dll",
+      "bytes": 14873600,
+      "sha256": "c1fa5b684222edc41599aebea73000e4599aac822ada9218de0a9ef92192c50b"
+    },
+    {
+      "path": "nppicc64_12.dll",
+      "bytes": 5421056,
+      "sha256": "ac5894b282e7bb39a73bca24237294e4adefb9b2e10b4a686cfa0d063b81b817"
+    },
+    {
+      "path": "nppidei64_12.dll",
+      "bytes": 9459712,
+      "sha256": "c93ac574d8b01dbcfc7192e68e2b7191d5da862057dd97c804bce6ae0e99cc86"
+    },
+    {
+      "path": "nppig64_12.dll",
+      "bytes": 37711360,
+      "sha256": "54b5109d4670070ef15a2cffeb83152354da577b58969d90ad0e6bfde9b9f31d"
+    },
+    {
+      "path": "nppim64_12.dll",
+      "bytes": 7943680,
+      "sha256": "c0c1c80f7cc0d4afd072a65cd392b0a94ee4b17d66ec62143ec617bd9a66cb58"
+    },
+    {
+      "path": "nppist64_12.dll",
+      "bytes": 37652480,
+      "sha256": "bc934cdcd3506ec76c659b678558280a317e7f47dc7e725cc14224822d2731f5"
+    },
+    {
+      "path": "nppitc64_12.dll",
+      "bytes": 4066304,
+      "sha256": "488f68f64dc34e9ff85264f3727493397a905b4d01615ad904036d4c0e9c9b1e"
+    },
+    {
+      "path": "NVCVImage.dll",
+      "bytes": 836608,
+      "sha256": "dac4321009470103fe4ba7257e7ed54100d371225d6919e25e1e89818f315373"
+    },
+    {
+      "path": "nvinfer_10.dll",
+      "bytes": 215426088,
+      "sha256": "5e322c35f90c042b459b8a6391c98d2d0de061a4e3f86e58223e367514db69bf"
+    },
+    {
+      "path": "nvinfer_plugin_10.dll",
+      "bytes": 30986792,
+      "sha256": "8eda725295722d10e8771a33d7c0fe21661ffb84634117d065673bc55580c956"
+    },
+    {
+      "path": "nvonnxparser_10.dll",
+      "bytes": 3064872,
+      "sha256": "a4468a1d2acd31af5d5a5ad3aaa1b704954c36bf9b940812161042878de172be"
+    },
+    {
+      "path": "nvrtc-builtins64_121.dll",
+      "bytes": 7001600,
+      "sha256": "0baa6563c0edfa4a36744f0d680398619b596d3167eeb0f29fa7d3f2ec5b6f18"
+    },
+    {
+      "path": "nvrtc64_120_0.dll",
+      "bytes": 42161152,
+      "sha256": "62b0975b7fe2940bfb367e257d734ef1a7cd512fcf3b53a5660082c742b244bb"
+    },
+    {
+      "path": "NVVideoEffects.dll",
+      "bytes": 19186192,
+      "sha256": "2a78effae55e9e3791bbe66f312f0bd08a2ede2c94fd8f820933badfa0a6cd8c"
+    },
+    {
+      "path": "NVIDIA Maxine EULA.pdf",
+      "bytes": 956770,
+      "sha256": "a22811660592e3efec09f135f54e56c50f4470a2414cf8383730ab2bee2efd29"
+    },
+    {
+      "path": "ThirdPartyLicenses.txt",
+      "bytes": 1383377,
+      "sha256": "207b323c79c8d73a1570378597b77dd6ce15d05d0391d9c4d1aef628490bbe70"
+    }
+  ],
+  "installer_signature_status": "UnknownError, NVIDIA DVS Dev Signing certificate; not reported as validated Authenticode"
+}

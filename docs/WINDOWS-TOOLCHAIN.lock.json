@@ -1,0 +1,18 @@
+{
+  "product": "Visual Studio Community 2022",
+  "version": "17.14.37906.3",
+  "is_complete": true,
+  "reboot_required": false,
+  "installed_components_requested": [
+    "Microsoft.VisualStudio.Component.VC.Tools.x86.x64",
+    "Microsoft.VisualStudio.Component.Windows11SDK.26100"
+  ],
+  "msvc_full_version": 194435230,
+  "windows_sdk": "10.0.26100.0",
+  "bootstrap_url": "https://aka.ms/vs/17/release/vs_community.exe",
+  "bootstrap_sha256": "051dffb68c39b9a4f15b830fdae8d08dd5620369e923262c46f27e07a428a68c",
+  "signature": "Valid Microsoft Corporation before execution",
+  "cost": "Community individual developer license, no purchase or paid subscription activated",
+  "compiler_is_development_dependency_not_application_runtime": true,
+  "probe_scope": "Native C++20, MF startup, API export and D3D11 64x64 texture verified before later execution-policy block. Not virtual webcam product readiness."
+}

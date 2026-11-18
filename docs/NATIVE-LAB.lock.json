@@ -1,0 +1,82 @@
+{
+  "upstream": "https://github.com/microsoft/Windows-Camera",
+  "files": [
+    {
+      "path": "Samples/VirtualCamera/VirtualCameraMediaSource/SimpleMediaSource.cpp",
+      "sha256": "d8ee0494131bec8b60eca161b23f05066030c5f182b0fe31e7ea9c7ee260cc62",
+      "normalized_lf_sha256": "65b7ee2dbacbeb17bafc415bc7c6e87c6564f091021ed65d5a9fa6200579d6e6"
+    },
+    {
+      "path": "Samples/VirtualCamera/VirtualCameraMediaSource/SimpleMediaSource.h",
+      "sha256": "9497b687908f6e5d16ead9035ab621b1335ff5ffd7706359777087f2643451ed",
+      "normalized_lf_sha256": "1ed2ee06e19412a84f7d2f9085835278f06c103a7d7294bef9c5cd7da5300ca3"
+    },
+    {
+      "path": "Samples/VirtualCamera/VirtualCameraMediaSource/SimpleMediaStream.cpp",
+      "sha256": "847b94ee4cd738323ca603f254a048b063958293440f6c7eb876da00cad6df1a",
+      "normalized_lf_sha256": "74967713db4a908a23d0da97af4c6a09cc6c7d6679943726d775b397c1f0b34d"
+    },
+    {
+      "path": "Samples/VirtualCamera/VirtualCameraMediaSource/SimpleMediaStream.h",
+      "sha256": "fcf9273e9ba0c7fd4e0adeb28eb1ce7cbc3d71e8df51277e82fe5d468ed17ccd",
+      "normalized_lf_sha256": "c3156639b744db1dda243f7b47dd78f4e340b6cdd2b99551f465149cb62a5f54"
+    },
+    {
+      "path": "Samples/VirtualCamera/VirtualCameraMediaSource/SimpleFrameGenerator.cpp",
+      "sha256": "e72785afe65149369cba1053b53780a61ffa3fbe06bdd5c9d6da57d3adbef514",
+      "normalized_lf_sha256": "5c5dbc1fa490eb28c085715ada10ba5051650552fbd7c35566396b0dcf3f45fb"
+    },
+    {
+      "path": "Samples/VirtualCamera/VirtualCameraMediaSource/SimpleFrameGenerator.h",
+      "sha256": "dd60164ca70815203e6d9f24d9f0424fae8002b3f29135d11dc833ca38a90f5a",
+      "normalized_lf_sha256": "47f1827ec6b7bf38a72066a8c632498a68cee8e093c3d276db87b7ad97ac455b"
+    },
+    {
+      "path": "Samples/VirtualCamera/VirtualCameraMediaSource/VirtualCameraMediaSource.h",
+      "sha256": "45eda756a9e1594cf59fba6ed5ef32da1e2fc1ebe170ec582bf89e4b3f3ee47e",
+      "normalized_lf_sha256": "8ddc664ccb0c98880938fad15fd999cdcc3bd3ca8db42cd49368c220e943a794"
+    },
+    {
+      "path": "Samples/VirtualCamera/VirtualCameraMediaSource/winrtCommon.cpp",
+      "sha256": "3fe17b367dc8181d422dea18a7a49e026779114e0f4e9c5d18a65d10bfec75f9",
+      "normalized_lf_sha256": "3b9f4e15c1b879f78387f86bf7119f7d88db44dc923633ed5e556286af155354"
+    },
+    {
+      "path": "LICENSE",
+      "sha256": "dea9265341829002e2c23a7372393eb2ed6e26085fb623f38a4ba0af833f30a6",
+      "normalized_lf_sha256": "27ebda9d51f0a56b7e281ccd8230a27236dcb51c05f64b07869ecf6e965d68b0"
+    }
+  ],
+  "license": "MIT",
+  "scope": "selected synthetic source, no hardware wrapper/installer/systray, isolated lab copy",
+  "commit": "626f8b19c5f367602f2e89c6b314573d3776c9df",
+  "source_base": "https://raw.githubusercontent.com/microsoft/Windows-Camera/626f8b19c5f367602f2e89c6b314573d3776c9df/",
+  "dependency": {
+    "package": "Microsoft.Windows.ImplementationLibrary",
+    "version": "1.0.260126.7",
+    "url": "https://api.nuget.org/v3-flatcontainer/microsoft.windows.implementationlibrary/1.0.260126.7/microsoft.windows.implementationlibrary.1.0.260126.7.nupkg",
+    "sha256": "7d67bc71dd0edc342db44ea0334ac9b6a1776514f81694b0b5b3c7ac9d608e42"
+  },
+  "owner_clsid": "1A20172A-B194-41B7-BCC4-9445B9651BF7",
+  "registration_default": "Build only. Explicit opt-in required for temporary ownGUID/current-user-session device test.",
+  "activation_attributes_source": "Selected IMFAttributes declarations/delegations adapted from same pinned Microsoft source. Own activation/factory/lifecycle/test controller.",
+  "line_ending_policy": "Exact digest or explicitly pinned CRLF-to-LF equivalent only.",
+  "adapted_input_files": [
+    {
+      "path": "Samples/VirtualCamera/VirtualCameraMediaSource/VirtualCameraMediaSourceActivate.cpp",
+      "sha256": "1d818d352a858a3ccc2a145fd7ba138fb5d22c86acce2e3e78075b488182e816",
+      "reuse": "IMFAttributes declarations/delegation or bounded array helper only; own factory/lifecycle and no hardware wrappers"
+    },
+    {
+      "path": "Samples/VirtualCamera/VirtualCameraMediaSource/VirtualCameraMediaSourceActivate.h",
+      "sha256": "1af887e45b62a7f04f1e35edfa0f1583e054b4c90a8bc4615bb0d9e0d3465ed1",
+      "reuse": "IMFAttributes declarations/delegation or bounded array helper only; own factory/lifecycle and no hardware wrappers"
+    },
+    {
+      "path": "Samples/VirtualCamera/VirtualCameraMediaSource/pch.h",
+      "sha256": "f79118c41f7764654ff5f444aea676e9a878a4db330efe782a78d6518ac00dbf",
+      "reuse": "IMFAttributes declarations/delegation or bounded array helper only; own factory/lifecycle and no hardware wrappers"
+    }
+  ],
+  "frame_bridge_reuse": "Pinned MIT SimpleMediaSource/Stream with own replacement FrameGenerator interface/implementation; no vendor cache modified. See docs/FRAME-BRIDGE.md. Reuses only permitted MIT interfaces/source and own lifecycle code."
+}

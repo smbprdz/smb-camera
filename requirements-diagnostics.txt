@@ -1,0 +1,2 @@
+# Diagnostic/test tools only, not required by the production UI timing flag.
+psutil==7.2.2

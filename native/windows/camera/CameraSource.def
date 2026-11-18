@@ -1,0 +1,4 @@
+LIBRARY SMBCameraSource
+EXPORTS
+    DllGetClassObject PRIVATE
+    DllCanUnloadNow PRIVATE

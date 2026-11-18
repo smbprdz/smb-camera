@@ -1,0 +1,4 @@
+LIBRARY UcsNativeTestSource
+EXPORTS
+ DllGetClassObject PRIVATE
+ DllCanUnloadNow PRIVATE

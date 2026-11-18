@@ -1,0 +1,48 @@
+// !$*UTF8*$!
+{ archiveVersion = 1; classes = {}; objectVersion = 56; objects = {
+168D2E3E499DD1ABF8320508 = { isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sources/App.swift"; sourceTree = "<group>"; };
+38FD2C7AE8E94DD4C66EC195 = { isa = PBXBuildFile; fileRef = 168D2E3E499DD1ABF8320508; };
+B32E6D1B73B0EE602AC221BF = { isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sources/Camera.swift"; sourceTree = "<group>"; };
+E9F37B09D6B0763C2DCE4989 = { isa = PBXBuildFile; fileRef = B32E6D1B73B0EE602AC221BF; };
+CE5D3800BBA1ABB687D60607 = { isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sources/CameraControls.swift"; sourceTree = "<group>"; };
+94D563115764FD156F96E544 = { isa = PBXBuildFile; fileRef = CE5D3800BBA1ABB687D60607; };
+740ACDA98478EA85755E318A = { isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sources/CameraScreenMode.swift"; sourceTree = "<group>"; };
+9CFD6B429E2747C4217FCF51 = { isa = PBXBuildFile; fileRef = 740ACDA98478EA85755E318A; };
+1467DAFEAEEF5D8248F11F07 = { isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sources/Link.swift"; sourceTree = "<group>"; };
+C4F7E5BE0C197502E60C6541 = { isa = PBXBuildFile; fileRef = 1467DAFEAEEF5D8248F11F07; };
+5788769F69AD878D0EDCC27A = { isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sources/PairingRecord.swift"; sourceTree = "<group>"; };
+DD638D45A8C2130E2C3B47CE = { isa = PBXBuildFile; fileRef = 5788769F69AD878D0EDCC27A; };
+F1AE0BCCA90EAE801611C1AE = { isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sources/PairingScanner.swift"; sourceTree = "<group>"; };
+2E4A82AC9BEEE068C5B22A47 = { isa = PBXBuildFile; fileRef = F1AE0BCCA90EAE801611C1AE; };
+D70745AC74D6A21C8E6366DF = { isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sources/PairingStore.swift"; sourceTree = "<group>"; };
+8809AF15163BAF3DD8B8C2F9 = { isa = PBXBuildFile; fileRef = D70745AC74D6A21C8E6366DF; };
+8BC49D052C06BCD38E5BAFD1 = { isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sources/PCDiscovery.swift"; sourceTree = "<group>"; };
+DAD9379FA093B966388D90FC = { isa = PBXBuildFile; fileRef = 8BC49D052C06BCD38E5BAFD1; };
+6DCAD9F45F339E8AC0B84745 = { isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sources/RecordingMic.swift"; sourceTree = "<group>"; };
+124A7AD5702535D576711A15 = { isa = PBXBuildFile; fileRef = 6DCAD9F45F339E8AC0B84745; };
+879F6E5D32F32DBDA6127461 = { isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sources/RemoteCommand.swift"; sourceTree = "<group>"; };
+FA7D36B872170E847EDF3C12 = { isa = PBXBuildFile; fileRef = 879F6E5D32F32DBDA6127461; };
+6EFCD7A8DA1CA8240B061BB6 = { isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sources/StreamTiming.swift"; sourceTree = "<group>"; };
+DBD3E23CA9D343D26F5313DE = { isa = PBXBuildFile; fileRef = 6EFCD7A8DA1CA8240B061BB6; };
+074BA1D171F5D2D41A49B49E = { isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sources/USBBridge.swift"; sourceTree = "<group>"; };
+2D09DA08D200AB6F8353F78D = { isa = PBXBuildFile; fileRef = 074BA1D171F5D2D41A49B49E; };
+1BA0FC66C45A4C0FD4C6530E = { isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sources/VideoMode.swift"; sourceTree = "<group>"; };
+72D4CCE8F0C062C8C32CC798 = { isa = PBXBuildFile; fileRef = 1BA0FC66C45A4C0FD4C6530E; };
+DDA201137FDD8B33B11561C9 = { isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sources/Wire.swift"; sourceTree = "<group>"; };
+7F54642B30B38C648001D4ED = { isa = PBXBuildFile; fileRef = DDA201137FDD8B33B11561C9; };
+8BF729FFE074CAEE622C0292 = { isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+5522B3B3B2EACC1C8F9BEAAC = { isa = PBXBuildFile; fileRef = 8BF729FFE074CAEE622C0292; };
+41D311A605520FC7B8B9A980 = { isa = PBXResourcesBuildPhase; buildActionMask = 2147483647; files = (5522B3B3B2EACC1C8F9BEAAC,); runOnlyForDeploymentPostprocessing = 0; };
+A8792157CB4F27FB949C035F = { isa = PBXFileReference; explicitFileType = wrapper.application; path = UniversalCamera.app; sourceTree = BUILT_PRODUCTS_DIR; };
+0A3E27B8CA818264D75C8D81 = { isa = PBXGroup; children = (A8792157CB4F27FB949C035F,); name = Products; sourceTree = "<group>"; };
+AD936FCBED631FA67E05C3EA = { isa = PBXGroup; children = (168D2E3E499DD1ABF8320508,B32E6D1B73B0EE602AC221BF,CE5D3800BBA1ABB687D60607,740ACDA98478EA85755E318A,1467DAFEAEEF5D8248F11F07,5788769F69AD878D0EDCC27A,F1AE0BCCA90EAE801611C1AE,D70745AC74D6A21C8E6366DF,8BC49D052C06BCD38E5BAFD1,6DCAD9F45F339E8AC0B84745,879F6E5D32F32DBDA6127461,6EFCD7A8DA1CA8240B061BB6,074BA1D171F5D2D41A49B49E,1BA0FC66C45A4C0FD4C6530E,DDA201137FDD8B33B11561C9,8BF729FFE074CAEE622C0292,0A3E27B8CA818264D75C8D81,); sourceTree = "<group>"; };
+878A52FC5FF6A57D50B7B870 = { isa = PBXSourcesBuildPhase; buildActionMask = 2147483647; files = (38FD2C7AE8E94DD4C66EC195,E9F37B09D6B0763C2DCE4989,94D563115764FD156F96E544,9CFD6B429E2747C4217FCF51,C4F7E5BE0C197502E60C6541,DD638D45A8C2130E2C3B47CE,2E4A82AC9BEEE068C5B22A47,8809AF15163BAF3DD8B8C2F9,DAD9379FA093B966388D90FC,124A7AD5702535D576711A15,FA7D36B872170E847EDF3C12,DBD3E23CA9D343D26F5313DE,2D09DA08D200AB6F8353F78D,72D4CCE8F0C062C8C32CC798,7F54642B30B38C648001D4ED,); runOnlyForDeploymentPostprocessing = 0; };
+73EBF6644258C120893E685D = { isa = XCBuildConfiguration; buildSettings = { CLANG_ENABLE_MODULES = YES; SDKROOT = iphoneos; IPHONEOS_DEPLOYMENT_TARGET = 16.0; SWIFT_VERSION = 5.0; }; name = Debug; };
+0B0C687DF8B6B8DC790B519C = { isa = XCBuildConfiguration; buildSettings = { CLANG_ENABLE_MODULES = YES; SDKROOT = iphoneos; IPHONEOS_DEPLOYMENT_TARGET = 16.0; SWIFT_VERSION = 5.0; }; name = Release; };
+76F8DEC3DFE0BDB465198890 = { isa = XCConfigurationList; buildConfigurations = (73EBF6644258C120893E685D,0B0C687DF8B6B8DC790B519C,); defaultConfigurationIsVisible = 0; defaultConfigurationName = Release; };
+6C7EFF6369083C8E1F2B1994 = { isa = XCBuildConfiguration; buildSettings = { CLANG_ENABLE_MODULES = YES; SDKROOT = iphoneos; IPHONEOS_DEPLOYMENT_TARGET = 16.0; SWIFT_VERSION = 5.0; ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon; PRODUCT_BUNDLE_IDENTIFIER = com.simbaproduz.universalcamera; PRODUCT_NAME = UniversalCamera; INFOPLIST_FILE = Info.plist; TARGETED_DEVICE_FAMILY = 1; CODE_SIGN_STYLE = Automatic; MARKETING_VERSION = 0.9.0; CURRENT_PROJECT_VERSION = 9; SWIFT_OPTIMIZATION_LEVEL = "-Onone"; }; name = Debug; };
+DD75E2CB1C510A828AC72D96 = { isa = XCBuildConfiguration; buildSettings = { CLANG_ENABLE_MODULES = YES; SDKROOT = iphoneos; IPHONEOS_DEPLOYMENT_TARGET = 16.0; SWIFT_VERSION = 5.0; ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon; PRODUCT_BUNDLE_IDENTIFIER = com.simbaproduz.universalcamera; PRODUCT_NAME = UniversalCamera; INFOPLIST_FILE = Info.plist; TARGETED_DEVICE_FAMILY = 1; CODE_SIGN_STYLE = Automatic; MARKETING_VERSION = 0.9.0; CURRENT_PROJECT_VERSION = 9; SWIFT_OPTIMIZATION_LEVEL = "-O"; }; name = Release; };
+1B672BF3DA427763BF644BE3 = { isa = XCConfigurationList; buildConfigurations = (6C7EFF6369083C8E1F2B1994,DD75E2CB1C510A828AC72D96,); defaultConfigurationIsVisible = 0; defaultConfigurationName = Release; };
+34A04005BCAF206EEC990BD9 = { isa = PBXNativeTarget; buildConfigurationList = 1B672BF3DA427763BF644BE3; buildPhases = (878A52FC5FF6A57D50B7B870,41D311A605520FC7B8B9A980,); buildRules = (); dependencies = (); name = UniversalCamera; productName = UniversalCamera; productReference = A8792157CB4F27FB949C035F; productType = "com.apple.product-type.application"; };
+244210E48437B6556980A702 = { isa = PBXProject; attributes = { LastUpgradeCheck = 1640; }; buildConfigurationList = 76F8DEC3DFE0BDB465198890; compatibilityVersion = "Xcode 14.0"; developmentRegion = en; hasScannedForEncodings = 0; knownRegions = (en,Base); mainGroup = AD936FCBED631FA67E05C3EA; productRefGroup = 0A3E27B8CA818264D75C8D81; projectDirPath = ""; projectRoot = ""; targets = (34A04005BCAF206EEC990BD9,); };
+}; rootObject = 244210E48437B6556980A702; }

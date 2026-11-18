@@ -1,0 +1,17 @@
+__pycache__/
+*.pyc
+.venv/
+.venv-*/
+runtime/
+output/
+build/
+dist/
+*.p12
+*.mobileprovision
+*.pem
+*.key
+.DS_Store
+xcuserdata/
+*.ipa
+*.apk
+*.aab

@@ -1,0 +1,2 @@
+# Optional GPU-only experimental portrait matting. Keep CUDA provider in a separate venv.
+onnxruntime-directml==1.23.0

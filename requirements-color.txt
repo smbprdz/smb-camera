@@ -1,0 +1,4 @@
+# GPU grading adapter, already available and tested on this Windows laboratory.
+# Both dependencies are MIT licensed. No browser runtime or Qt requirement.
+moderngl==5.13.0
+glcontext==3.1.0
