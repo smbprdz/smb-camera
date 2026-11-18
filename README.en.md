@@ -13,7 +13,6 @@
   <a href="#beta"><img src="https://img.shields.io/badge/status-beta-b82f75?style=flat-square" alt="Beta candidate"></a>
   <a href="docs/INSTALL-WINDOWS.md"><img src="https://img.shields.io/badge/Windows-11%20x64-27669e?style=flat-square" alt="Windows 11 x64"></a>
   <a href="#beta"><img src="https://img.shields.io/badge/USB-1080p30-30394c?style=flat-square" alt="USB 1080p30"></a>
-  <a href="#beta"><img src="https://img.shields.io/badge/tests-164%20passed-247056?style=flat-square" alt="164 tests passed on the public source selection"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-27669e?style=flat-square" alt="MIT license"></a>
 </p>
 
