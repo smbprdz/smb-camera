@@ -38,6 +38,80 @@ static class Setup
         Process.Start(Command(Path.Combine(folder, executable), arguments, folder));
     }
 
+    static readonly string LocalHome = Path.Combine(
+        Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "SMB Camera");
+    internal static readonly string DefaultFolder = Path.Combine(LocalHome, "Beta");
+    static readonly string Receipt = Path.Combine(LocalHome, "installed-folder.txt");
+    const string Python = @".venv\Scripts\pythonw.exe";
+    const string CameraArgs = "-m ucs.desktop --decoder d3d11va --renderer gl --matting-backend nvidia --alpha-output";
+
+    static string ObsArgs
+    {
+        get
+        {
+            var near = Path.GetDirectoryName(Application.ExecutablePath);
+            return "tools/obs_setup.py --near \"" + near.TrimEnd('\\') + "\"";
+        }
+    }
+
+    internal static bool IsPrepared(string folder)
+    {
+        try
+        {
+            if (String.IsNullOrWhiteSpace(folder) || !Path.IsPathRooted(folder) || new Uri(folder).IsUnc)
+                return false;
+            var required = new[] { Python, "MANIFEST.json", "ucs/desktop.py", "tools/obs_setup.py", "docs/PRIMEIRO-USO.html" };
+            return required.All(path => File.Exists(Path.Combine(folder, path))) &&
+                File.ReadLines(Path.Combine(folder, "preparacao.log")).Any(line => line.StartsWith("Pronto.", StringComparison.Ordinal));
+        }
+        catch (IOException) { return false; }
+        catch (ArgumentException) { return false; }
+        catch (UnauthorizedAccessException) { return false; }
+        catch (UriFormatException) { return false; }
+    }
+
+    internal static string FindInstallation()
+    {
+        string remembered = null;
+        try { if (File.Exists(Receipt)) remembered = File.ReadAllText(Receipt).Trim(); }
+        catch (IOException) { }
+        catch (UnauthorizedAccessException) { }
+        return IsPrepared(remembered) ? remembered : IsPrepared(DefaultFolder) ? DefaultFolder : null;
+    }
+
+    internal static void OpenCamera(string folder)
+    {
+        OpenTool(folder, Python, CameraArgs);
+    }
+
+    internal static void OpenObs(string folder)
+    {
+        OpenTool(folder, Python, ObsArgs);
+    }
+
+    internal static void Remember(string folder)
+    {
+        if (!IsPrepared(folder)) throw new InvalidOperationException("A preparação ainda não concluiu.");
+        Directory.CreateDirectory(LocalHome);
+        File.WriteAllText(Receipt, folder);
+        var programs = Environment.GetFolderPath(Environment.SpecialFolder.Programs);
+        var shortcuts = Path.Combine(programs, "SMB Camera");
+        Directory.CreateDirectory(shortcuts);
+        dynamic shell = Activator.CreateInstance(Type.GetTypeFromProgID("WScript.Shell"));
+        MakeShortcut(shell, shortcuts, "SMB Camera", folder, CameraArgs);
+        MakeShortcut(shell, shortcuts, "SMB Camera - Configurar OBS", folder, ObsArgs);
+    }
+
+    static void MakeShortcut(dynamic shell, string directory, string name, string folder, string args)
+    {
+        dynamic shortcut = shell.CreateShortcut(Path.Combine(directory, name + ".lnk"));
+        shortcut.TargetPath = Path.Combine(folder, Python);
+        shortcut.Arguments = args;
+        shortcut.WorkingDirectory = folder;
+        shortcut.IconLocation = Path.Combine(folder, "ucs/assets/live-icon.ico");
+        shortcut.Save();
+    }
+
     internal static void Install(string directory, Action<string> progress)
     {
         string root = Path.GetFullPath(directory);

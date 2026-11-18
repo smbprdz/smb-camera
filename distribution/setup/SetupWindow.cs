@@ -2,150 +2,212 @@ using System;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
 sealed class SetupWindow : Form
 {
-    private static readonly Color Surface = Color.FromArgb(16, 18, 22);
-    private static readonly Color Panel = Color.FromArgb(26, 29, 37);
-    private static readonly Color TextColor = Color.FromArgb(239, 240, 246);
-    private static readonly Color Muted = Color.FromArgb(177, 185, 203);
-    private static readonly Color Accent = Color.FromArgb(181, 45, 115);
+    private static readonly Color Surface = Color.FromArgb(15, 17, 23);
+    private static readonly Color Card = Color.FromArgb(24, 27, 36);
+    private static readonly Color White = Color.FromArgb(246, 247, 251);
+    private static readonly Color Muted = Color.FromArgb(181, 189, 207);
+    private static readonly Color Accent = Color.FromArgb(171, 40, 105);
+    private static readonly Color Mint = Color.FromArgb(128, 229, 185);
 
+    private readonly Panel body, destinationPage, progressPage, readyPage;
     private readonly TextBox destination;
-    private readonly Label status;
+    private readonly Label notice, runningText, readyNotice;
     private readonly ProgressBar progress;
-    private readonly Button install, choose, openCamera, openObs, openGuide;
+    private readonly Button install, openCamera;
     private readonly LinkLabel python, git;
     private bool running;
     private string installedFolder;
 
+    [DllImport("dwmapi.dll")]
+    private static extern int DwmSetWindowAttribute(IntPtr window, int attribute, ref int value, int size);
+
     internal SetupWindow()
     {
-        Text = "Instalar SMB Camera Beta";
+        Text = "Configuração do SMB Camera";
         Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
         Font = new Font("Segoe UI", 10);
         BackColor = Surface;
-        ForeColor = TextColor;
-        AutoScaleMode = AutoScaleMode.Dpi;
-        ClientSize = new Size(690, 430);
+        ForeColor = White;
+        ClientSize = new Size(704, 442);
         FormBorderStyle = FormBorderStyle.FixedDialog;
         MaximizeBox = false;
         StartPosition = FormStartPosition.CenterScreen;
+        AutoScaleDimensions = new SizeF(96F, 96F);
+        AutoScaleMode = AutoScaleMode.Dpi;
 
-        var mark = new PictureBox { Bounds = new Rectangle(24, 23, 52, 52), SizeMode = PictureBoxSizeMode.Zoom };
-        mark.Image = Icon.ToBitmap();
-        Controls.Add(mark);
-        Controls.Add(Caption("SMB Camera", 88, 20, 570, 41, 26, FontStyle.Bold, TextColor));
-        Controls.Add(Caption("Instalação beta para Windows · iPhone e OBS", 90, 63, 565, 30, 11, FontStyle.Regular, Muted));
-        Controls.Add(Caption("Pasta de instalação", 28, 113, 615, 25, 11, FontStyle.Bold, TextColor));
+        var brand = new PictureBox { Bounds = new Rectangle(30, 22, 36, 36), SizeMode = PictureBoxSizeMode.Zoom };
+        brand.Image = Icon.ToBitmap();
+        Controls.Add(brand);
+        LabelOn(this, "SMB Camera", 77, 21, 290, 39, 18, White, true);
+        LabelOn(this, "BETA PARA WINDOWS", 512, 32, 159, 25, 9, Muted, false).TextAlign = ContentAlignment.TopRight;
+        Controls.Add(new Panel { Bounds = new Rectangle(30, 77, 644, 1), BackColor = Color.FromArgb(48, 51, 65) });
 
+        body = new Panel { Bounds = new Rectangle(30, 97, 644, 316) };
+        Controls.Add(body);
+
+        destinationPage = NewPage("Instalar SMB Camera", "Escolha onde guardar o painel e seus componentes.");
+        var picker = new Panel { Bounds = new Rectangle(0, 97, 644, 95), BackColor = Card };
+        destinationPage.Controls.Add(picker);
+        LabelOn(picker, "Pasta de instalação", 16, 13, 590, 24, 10, White, true);
         destination = new TextBox {
-            Bounds = new Rectangle(28, 146, 497, 29), BackColor = Panel, ForeColor = TextColor,
-            BorderStyle = BorderStyle.FixedSingle, Text = Path.Combine(
-                Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "SMB Camera", "Beta")
+            Bounds = new Rectangle(16, 47, 470, 28), BackColor = Surface, ForeColor = White,
+            BorderStyle = BorderStyle.FixedSingle, Text = Setup.DefaultFolder
         };
-        Controls.Add(destination);
-        choose = AddButton("Escolher…", 537, 139, 124, false, Browse);
-        Controls.Add(Caption("O instalador prepara o painel. Depois, você escolhe o OBS para adicionar a fonte.",
-                             28, 186, 630, 45, 10, FontStyle.Regular, Muted));
-
-        progress = new ProgressBar { Bounds = new Rectangle(28, 238, 633, 7), Visible = false };
-        Controls.Add(progress);
-        status = Caption("Pronto para instalar no seu usuário.", 28, 255, 632, 56, 10, FontStyle.Bold, TextColor);
-        Controls.Add(status);
-        python = AddLink("Obter Python", 28, "https://www.python.org/downloads/windows/");
-        git = AddLink("Obter Git", 151, "https://gitforwindows.org/");
+        picker.Controls.Add(destination);
+        ButtonOn(picker, "Escolher pasta", 503, 41, 124, false, Browse);
+        notice = LabelOn(destinationPage, "", 0, 207, 640, 43, 10, Muted, false);
+        python = LinkOn(destinationPage, "Obter Python", 0, 250, "https://www.python.org/downloads/windows/");
+        git = LinkOn(destinationPage, "Obter Git", 123, 250, "https://gitforwindows.org/");
         python.Visible = git.Visible = false;
+        install = ButtonOn(destinationPage, "Instalar", 451, 267, 193, true, BeginInstall);
 
-        install = AddButton("Instalar SMB Camera", 431, 361, 230, true, BeginInstall);
-        openCamera = AddButton("Abrir SMB Camera", 28, 361, 197, true,
-            () => Open(() => Setup.OpenTool(installedFolder, @".venv\Scripts\pythonw.exe",
-                "-m ucs.desktop --decoder d3d11va --renderer gl --matting-backend nvidia --alpha-output")));
-        openObs = AddButton("Configurar OBS", 239, 361, 183, false,
-            () => Open(() => Setup.OpenTool(installedFolder, @".venv\Scripts\pythonw.exe",
-                "tools/obs_setup.py --near \"" + Path.GetDirectoryName(Application.ExecutablePath).TrimEnd('\\') + "\"")));
-        openGuide = AddButton("Guia do iPhone", 436, 361, 225, false,
-            () => Open(() => Process.Start(Path.Combine(installedFolder, "docs", "PRIMEIRO-USO.html"))));
-        openCamera.Visible = openObs.Visible = openGuide.Visible = false;
-        AcceptButton = install;
-        FormClosing += delegate(object sender, FormClosingEventArgs e) { if (running) e.Cancel = true; };
-    }
-
-    static Label Caption(string value, int left, int top, int width, int height,
-                         int size, FontStyle weight, Color color)
-    {
-        return new Label {
-            Text = value, Bounds = new Rectangle(left, top, width, height),
-            Font = new Font("Segoe UI", size, weight), ForeColor = color
+        progressPage = NewPage("Preparando o painel", "Você pode acompanhar o progresso aqui.");
+        runningText = LabelOn(progressPage, "", 0, 115, 640, 60, 12, White, true);
+        progress = new ProgressBar {
+            Bounds = new Rectangle(0, 187, 644, 8), Style = ProgressBarStyle.Marquee,
+            MarqueeAnimationSpeed = 0
         };
+        progressPage.Controls.Add(progress);
+
+        readyPage = NewPage("SMB Camera pronto", "Abra o painel para conectar seu iPhone.");
+        LabelOn(readyPage, "✓  Instalado neste usuário", 0, 99, 640, 28, 11, Mint, true);
+        readyNotice = LabelOn(readyPage, "", 0, 136, 640, 55, 10, Muted, false);
+        ButtonOn(readyPage, "Configurar OBS", 0, 267, 146, false,
+            () => Open(() => Setup.OpenObs(installedFolder)));
+        ButtonOn(readyPage, "Guia do iPhone", 157, 267, 149, false,
+            () => Open(() => Process.Start(Path.Combine(installedFolder, "docs", "PRIMEIRO-USO.html"))));
+        openCamera = ButtonOn(readyPage, "Abrir SMB Camera", 451, 267, 193, true,
+            () => Open(() => Setup.OpenCamera(installedFolder)));
+
+        FormClosing += delegate(object sender, FormClosingEventArgs e) { if (running) e.Cancel = true; };
+        var known = Setup.FindInstallation();
+        if (known == null) ShowPage(destinationPage, install);
+        else Finish(known);
     }
 
-    Button AddButton(string caption, int left, int top, int width, bool primary, Action action)
+    protected override void OnHandleCreated(EventArgs e)
+    {
+        base.OnHandleCreated(e);
+        int enabled = 1;
+        DwmSetWindowAttribute(Handle, 20, ref enabled, sizeof(int));
+    }
+
+    Panel NewPage(string title, string subtitle)
+    {
+        var page = new Panel { Dock = DockStyle.Fill };
+        LabelOn(page, title, 0, 2, 644, 45, 25, White, true);
+        LabelOn(page, subtitle, 0, 52, 644, 36, 11, Muted, false);
+        body.Controls.Add(page);
+        return page;
+    }
+
+    void ShowPage(Panel page, Button primary)
+    {
+        foreach (Control view in body.Controls) view.Visible = view == page;
+        page.BringToFront();
+        AcceptButton = primary;
+        if (primary != null) ActiveControl = primary;
+    }
+
+    static Label LabelOn(Control parent, string value, int x, int y, int width, int height,
+                         int size, Color color, bool bold)
+    {
+        var label = new Label {
+            Text = value, Bounds = new Rectangle(x, y, width, height), ForeColor = color,
+            Font = new Font("Segoe UI", size, bold ? FontStyle.Bold : FontStyle.Regular)
+        };
+        parent.Controls.Add(label);
+        return label;
+    }
+
+    static Button ButtonOn(Control parent, string text, int x, int y, int width, bool primary, Action action)
     {
         var button = new Button {
-            Text = caption, Bounds = new Rectangle(left, top, width, 44),
-            FlatStyle = FlatStyle.Flat, BackColor = primary ? Accent : Panel,
-            ForeColor = TextColor, Font = new Font("Segoe UI", 10, FontStyle.Bold)
+            Text = text, Bounds = new Rectangle(x, y, width, 43), ForeColor = White,
+            BackColor = primary ? Accent : Card, FlatStyle = FlatStyle.Flat,
+            Font = new Font("Segoe UI", 10, FontStyle.Bold)
         };
-        button.FlatAppearance.BorderColor = primary ? Accent : Color.FromArgb(55, 61, 75);
+        button.FlatAppearance.BorderColor = primary ? Accent : Color.FromArgb(57, 62, 77);
+        button.FlatAppearance.MouseOverBackColor = primary ? Color.FromArgb(195, 52, 124) : Color.FromArgb(36, 41, 55);
         button.Click += delegate { action(); };
-        Controls.Add(button);
+        parent.Controls.Add(button);
         return button;
-    }
-
-    LinkLabel AddLink(string caption, int left, string href)
-    {
-        var link = new LinkLabel {
-            Text = caption, Bounds = new Rectangle(left, 318, 112, 25),
-            LinkColor = Color.FromArgb(249, 155, 205), ActiveLinkColor = TextColor
-        };
-        link.LinkClicked += delegate { Open(() => Process.Start(href)); };
-        Controls.Add(link);
-        return link;
     }
 
     void Browse()
     {
-        using (var chooser = new FolderBrowserDialog())
+        using (var dialog = new FolderBrowserDialog())
         {
-            chooser.Description = "Escolha uma pasta vazia para instalar esta beta.";
-            if (chooser.ShowDialog(this) == DialogResult.OK) destination.Text = chooser.SelectedPath;
+            dialog.Description = "Escolha uma pasta local para o SMB Camera.";
+            if (dialog.ShowDialog(this) != DialogResult.OK) return;
+            destination.Text = dialog.SelectedPath;
+            if (Setup.IsPrepared(dialog.SelectedPath)) Finish(dialog.SelectedPath);
         }
     }
 
-    void Open(Action task)
+    LinkLabel LinkOn(Panel page, string text, int x, int y, string href)
     {
-        try { task(); }
-        catch (Exception) { status.Text = "Não consegui abrir esta etapa. Confira a pasta instalada."; }
+        var link = new LinkLabel {
+            Text = text, Bounds = new Rectangle(x, y, 115, 25),
+            LinkColor = Color.FromArgb(244, 142, 198), ActiveLinkColor = White
+        };
+        link.LinkClicked += delegate { Process.Start(href); };
+        page.Controls.Add(link);
+        return link;
+    }
+
+    void Open(Action action)
+    {
+        try { action(); }
+        catch (Exception) { readyNotice.Text = "Não foi possível abrir. Verifique se a pasta instalada está acessível."; }
+    }
+
+    void ShowReady(string folder, string message)
+    {
+        installedFolder = folder;
+        readyNotice.Text = message.Length == 0 ? "Encontre SMB Camera e SMB Camera - Configurar OBS no menu Iniciar." : message;
+        ShowPage(readyPage, openCamera);
     }
 
     async void BeginInstall()
     {
         string folder = destination.Text.Trim();
-        if (folder.Length == 0) { status.Text = "Escolha a pasta de instalação."; return; }
+        if (folder.Length == 0) { notice.Text = "Escolha a pasta de instalação."; return; }
+        if (Setup.IsPrepared(folder)) { Finish(folder); return; }
         running = true;
-        destination.Enabled = choose.Enabled = install.Enabled = false;
-        python.Visible = git.Visible = false;
-        progress.Visible = true;
-        progress.Style = ProgressBarStyle.Marquee;
+        runningText.Text = "Verificando os pré-requisitos…";
+        progress.MarqueeAnimationSpeed = 30;
+        ShowPage(progressPage, null);
         try
         {
-            await Task.Run(() => Setup.Install(folder, message => Invoke(new Action(() => status.Text = message))));
-            installedFolder = Path.GetFullPath(folder);
-            destination.Text = installedFolder;
-            status.Text = "SMB Camera instalado. Abra o painel e configure a fonte no OBS.";
-            install.Visible = false;
-            openCamera.Visible = openObs.Visible = openGuide.Visible = true;
-            AcceptButton = openCamera;
+            await Task.Run(() => Setup.Install(folder,
+                message => Invoke(new Action(() => runningText.Text = message))));
+            Finish(Path.GetFullPath(folder));
         }
         catch (Exception error)
         {
-            status.Text = error.Message;
+            notice.Text = error.Message;
             python.Visible = git.Visible = error.Message.StartsWith("Instale ", StringComparison.Ordinal);
-            destination.Enabled = choose.Enabled = install.Enabled = true;
+            ShowPage(destinationPage, install);
         }
-        finally { running = progress.Visible = false; }
+        finally
+        {
+            running = false;
+            progress.MarqueeAnimationSpeed = 0;
+        }
+    }
+
+    void Finish(string folder)
+    {
+        var message = "";
+        try { Setup.Remember(folder); }
+        catch (Exception) { message = "Painel pronto. Confira os atalhos e use estes botões se precisar."; }
+        ShowReady(folder, message);
     }
 }

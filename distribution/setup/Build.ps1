@@ -38,7 +38,7 @@ New-Item -ItemType Directory -Path (Split-Path -Parent $destinationPath) -Force 
 $compilerArgs=@(
     '/nologo', '/target:winexe', '/platform:x64', '/optimize+', '/codepage:65001',
     "/out:$destinationPath", "/win32icon:$icon", "/resource:$packagePath,SMB.Camera.Windows.Beta",
-    '/reference:System.Windows.Forms.dll', '/reference:System.Drawing.dll',
+    '/reference:System.Windows.Forms.dll', '/reference:System.Drawing.dll', '/reference:Microsoft.CSharp.dll',
     '/reference:System.IO.Compression.dll', '/reference:System.IO.Compression.FileSystem.dll',
     (Join-Path $PSScriptRoot 'Setup.cs'), (Join-Path $PSScriptRoot 'SetupWindow.cs')
 )
