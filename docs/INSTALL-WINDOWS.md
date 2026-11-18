@@ -2,6 +2,8 @@
 
 ## Instalação gráfica
 
+Baixe o instalador na [pré-release](https://github.com/smbprdz/smb-camera/releases/tag/v0.19.3-beta). O EXE desta beta ainda não tem assinatura Authenticode, então o Windows pode bloquear a abertura. Compare o SHA-256 com `SHA256SUMS.txt` da release para verificar a integridade do download. Se o EXE estiver bloqueado no seu ambiente, a release também oferece a rota ZIP abaixo.
+
 Abra o instalador SMB Camera Beta, escolha uma pasta local vazia e clique em **Instalar SMB Camera**. Ele verifica Python 3.11 x64, launcher py e OpenSSL, prepara as dependências e oferece **Abrir SMB Camera**, **Configurar OBS** e **Guia do iPhone**. Se um pré-requisito estiver ausente, a tela oferece os links oficiais.
 
 ## Alternativa portátil por ZIP

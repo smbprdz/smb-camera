@@ -3,14 +3,15 @@
 </h1>
 
 <p align="center">
-  <a href="docs/INSTALL-WINDOWS.md"><strong>Windows setup</strong></a> ·
+  <a href="https://github.com/smbprdz/smb-camera/releases/tag/v0.19.3-beta"><strong>Download beta</strong></a> ·
+  <a href="docs/INSTALL-WINDOWS.md">Windows guide</a> ·
   <a href="docs/INSTALL-IOS.md">iPhone setup</a> ·
   <a href="docs/INSTALL-WINDOWS.md#obs-e-gravação">OBS</a> ·
   <a href="README.md">Português</a>
 </p>
 
 <p align="center">
-  <a href="#beta"><img src="https://img.shields.io/badge/status-beta-b82f75?style=flat-square" alt="Beta candidate"></a>
+  <a href="#beta"><img src="https://img.shields.io/badge/status-beta-b82f75?style=flat-square" alt="Public beta"></a>
   <a href="docs/INSTALL-WINDOWS.md"><img src="https://img.shields.io/badge/Windows-11%20x64-27669e?style=flat-square" alt="Windows 11 x64"></a>
   <a href="docs/INSTALL-IOS.md"><img src="https://img.shields.io/badge/iPhone-30394c?style=flat-square&amp;logo=apple&amp;logoColor=white" alt="iPhone only"></a>
   <a href="#beta"><img src="https://img.shields.io/badge/USB-1080p30-30394c?style=flat-square" alt="USB 1080p30"></a>
@@ -42,7 +43,7 @@
 | OBS | SMB Camera source with OBS x64 32.2.2 and OBS 33.0.0 Portable |
 | Recording | MOV with original H.264 video and optional PCM audio |
 
-The public source selection passed 164 tests. One optional NVIDIA runtime test was skipped.
+On the reference setup, USB delivered 1080p30 and recorded a MOV with iPhone microphone audio. With NVIDIA background removal on, the OBS source published about 24 frames per second in the last measured window. Performance during gameplay, sustained Wi-Fi, and installation on other PCs are still awaiting validation.
 
 The iPhone app requires [personal signing](docs/INSTALL-IOS.md). The beta focuses on the OBS source and original recording. The Windows virtual webcam is under development. Setup and contribution guides are currently in Portuguese.
 
