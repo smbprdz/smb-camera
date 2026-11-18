@@ -1,0 +1,33 @@
+name: Reportar um problema / Report a bug
+description: Ajude a reproduzir um problema no SMB Camera
+title: "[Bug]: "
+body:
+  - type: textarea
+    id: environment
+    attributes:
+      label: Ambiente / Environment
+      description: Informe versões do SMB Camera (PC e iPhone), Windows, iOS, OBS, GPU e conexão (USB ou Wi-Fi).
+      placeholder: Windows 11, desktop 0.19.1, iPhone 0.9, OBS x64, USB
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Como reproduzir / Steps to reproduce
+      description: Inclua a sequência desde a abertura do painel e o momento em que acontece.
+    validations:
+      required: true
+  - type: textarea
+    id: results
+    attributes:
+      label: Resultado esperado e observado / Expected and actual result
+      description: Inclua a mensagem mostrada no painel, se houver.
+    validations:
+      required: true
+  - type: checkboxes
+    id: privacy
+    attributes:
+      label: Privacidade / Privacy
+      options:
+        - label: Conferi que o relato e os anexos omitem QR, credenciais, tokens e mídia pessoal.
+          required: true
