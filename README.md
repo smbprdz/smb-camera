@@ -12,7 +12,9 @@
 <p align="center">
   <a href="#beta"><img src="https://img.shields.io/badge/status-beta-b82f75?style=flat-square" alt="Candidata à beta"></a>
   <a href="docs/INSTALL-WINDOWS.md"><img src="https://img.shields.io/badge/Windows-11%20x64-27669e?style=flat-square" alt="Windows 11 x64"></a>
+  <a href="docs/INSTALL-IOS.md"><img src="https://img.shields.io/badge/iPhone-30394c?style=flat-square&amp;logo=apple&amp;logoColor=white" alt="iPhone, sem versão Android"></a>
   <a href="#beta"><img src="https://img.shields.io/badge/USB-1080p30-30394c?style=flat-square" alt="USB 1080p30"></a>
+  <a href="docs/NVIDIA-BETA.md"><img src="https://img.shields.io/badge/Recorte-NVIDIA%20RTX%2030-365f18?style=flat-square&amp;logo=nvidia&amp;logoColor=white" alt="Recorte opcional NVIDIA RTX 30"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/licen%C3%A7a-MIT-27669e?style=flat-square" alt="Licença MIT"></a>
 </p>
 
@@ -43,6 +45,8 @@
 Na validação da seleção pública, 164 testes passaram. Um teste do runtime NVIDIA opcional ficou fora dessa rodada.
 
 O app iOS usa [assinatura pessoal](docs/INSTALL-IOS.md). A fonte OBS usa uma conexão local e a beta foca em OBS e em gravação original. O componente de webcam do Windows está em desenvolvimento.
+
+**Recorte de fundo:** opcional, validado em NVIDIA RTX 30. GPUs AMD ainda não têm suporte a esse efeito.
 
 ## Código e colaboração
 

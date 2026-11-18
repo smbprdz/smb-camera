@@ -12,7 +12,9 @@
 <p align="center">
   <a href="#beta"><img src="https://img.shields.io/badge/status-beta-b82f75?style=flat-square" alt="Beta candidate"></a>
   <a href="docs/INSTALL-WINDOWS.md"><img src="https://img.shields.io/badge/Windows-11%20x64-27669e?style=flat-square" alt="Windows 11 x64"></a>
+  <a href="docs/INSTALL-IOS.md"><img src="https://img.shields.io/badge/iPhone-30394c?style=flat-square&amp;logo=apple&amp;logoColor=white" alt="iPhone only"></a>
   <a href="#beta"><img src="https://img.shields.io/badge/USB-1080p30-30394c?style=flat-square" alt="USB 1080p30"></a>
+  <a href="docs/NVIDIA-BETA.md"><img src="https://img.shields.io/badge/Background%20removal-NVIDIA%20RTX%2030-365f18?style=flat-square&amp;logo=nvidia&amp;logoColor=white" alt="Optional NVIDIA RTX 30 background removal"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-27669e?style=flat-square" alt="MIT license"></a>
 </p>
 
@@ -43,5 +45,7 @@
 The public source selection passed 164 tests. One optional NVIDIA runtime test was skipped.
 
 The iPhone app requires [personal signing](docs/INSTALL-IOS.md). The beta focuses on the OBS source and original recording. The Windows virtual webcam is under development. Setup and contribution guides are currently in Portuguese.
+
+**Background removal:** optional, validated on NVIDIA RTX 30. AMD GPUs are not supported for this effect yet.
 
 [Contributing](CONTRIBUTING.md) · [Protocol](docs/PROTOCOL.md) · [Privacy](docs/PRIVACY.md) · [License](LICENSE)
